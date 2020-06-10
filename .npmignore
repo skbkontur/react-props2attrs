@@ -1,0 +1,5 @@
+index.ts
+__tests__
+.idea
+.prettierrc
+tsconfig.json

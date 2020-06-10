@@ -1,0 +1,47 @@
+{
+  "name": "react-props2attrs",
+  "version": "0.1.0",
+  "description": "Translate react-props to attributes associated html-element",
+  "main": "index.js",
+  "scripts": {
+    "prebuild": "npm run clean",
+    "build": "tsc",
+    "test": "jest",
+    "clean": "git clean -fdxqe node_modules",
+    "lint": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skbkontur/react-props2attrs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skbkontur/react-props2attrs/issues"
+  },
+  "homepage": "https://github.com/skbkontur/react-props2attrs#readme",
+  "devDependencies": {
+    "@testing-library/react": "^10.2.1",
+    "@types/jest": "^25.2.3",
+    "@types/react-dom": "^16.9.8",
+    "jest": "^26.0.1",
+    "prettier": "^2.0.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "ts-jest": "^26.1.0",
+    "typescript": "^3.9.5"
+  },
+  "jest": {
+    "transform": {
+      "\\.tsx?$": [
+        "ts-jest"
+      ]
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "<rootDir>/tsconfig.json"
+      }
+    },
+    "testRegex": "test\\.tsx$"
+  }
+}
