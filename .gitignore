@@ -9,4 +9,5 @@ yarn-error.log
 npm-debug.log
 
 index.d.ts
+index.js.map
 index.js

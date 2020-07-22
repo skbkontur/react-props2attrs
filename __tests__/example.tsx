@@ -5,7 +5,17 @@ export class Component_0 extends React.Component<{}, {}> {
     return (
       <div>
         <Component_1 />
-        <Component_2 type_number={123} type_array={['a', 'b']} type_func={console.log} />
+        <Component_2
+          string="str"
+          number={123}
+          array={['a', 'b']}
+          object={{ a: 'b' }}
+          func={() => {}}
+          boolean={false}
+          empty_string=""
+          null={null}
+          undefined={undefined}
+        />
         <Component_3 data-tid="Component_2_1_1" />
       </div>
     );
@@ -23,11 +33,18 @@ class Component_1 extends React.Component<{}, {}> {
 }
 
 interface Props_2 {
-  type_number: number;
-  type_array: string[];
-  type_func: Function;
+  string: string;
+  number: number;
+  array: string[];
+  object: object;
+  func: Function;
+  boolean: boolean;
+  empty_string: string;
+  null: null;
+  undefined: undefined;
 }
-class Component_2 extends React.Component<Props_2, {}> {
+
+export class Component_2 extends React.Component<Props_2, {}> {
   public render() {
     return <Component_2_1 />;
   }

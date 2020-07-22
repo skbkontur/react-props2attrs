@@ -1,49 +1,40 @@
 # react-props2attrs
 
 Транслирует пропы реакт-компонентов в атрибуты ассоциированных html-элементов.
-Работает для `ClassComponent`, `FunctionComponent` и `HostComponent`(`div`, `span`, `table` etc.).
+Работает для `WorkTag` типов: `ClassComponent`, `FunctionComponent` и `HostComponent`(`div`, `span`, `table` etc.).
 
-Подключение:
+Основан на пакете [@skbkontur/react-sorge](https://github.com/skbkontur/react-sorge). Поэтому подключение должно происходить до первого подключения пакета `react-dom` в приложении:
 
-```jsx harmony static
+```typescript jsx
+// entry.js
+
 import 'react-props2attrs';
+import ReactDOM from 'react-dom';
+...
 ```
 
-Например, в приложение есть такие компоненты:
+Особенным образом транслируется имя компонента в атрибут `data-comp-name`.
+В этом атрибуте собираются имена всех react компонентов, для которых он стал ближайшим при поиске потомков.
 
-```jsx harmony static
-const Component_0 = () => {
-  return (
-    <div>
-      <span>Component_0</span>
-    </div>
-  );
-};
-Component_0.displayName = 'Component_0'; // при использовании минификатора
+Примеры трансляции специальных пропов:
 
-const Component_1 = () => {
-  return <span className="class_name_1">Component_1</span>;
-};
-Component_1.displayName = 'Component_1'; // при использовании минификатора
+| prop name  | prop value                        |     | attr value                       | attr name                    |
+| ---------- | --------------------------------- | --- | -------------------------------- | ---------------------------- |
+| `children` | ~~не поддерживается~~             | ➜   | ~~не поддерживается~~            |                              |
+| `style`    | { paddingLeft: 20, color: 'red' } | ➜   | {"paddingLeft":20,"color":"red"} | `data-prop-style`            |
+| `class`    | colored                           | ➜   | colored                          | `data-prop-classname`        |
+| `data-tid` | MyControl                         | ➜   | MyControl                        | `data-tid` and `data-testid` |
 
-<>
-  <Component_0 />
-  <Component_1 type_number={123} type_array={['a', 'b']} type_func={console.log} />
-</>;
-```
+Примеры трансляции обычных пропов:
 
-Тогда их ассоциированные html-элементы будут выглядеть так:
-
-```jsx harmony static
-<div data-comp-name="Component_0">
-    <span>Component_0</span>
-</div>
-<span
-    data-comp-name="Component_1"
-    data-prop-type_number="123"
-    data-prop-type_array="["a","b"]"
-    data-prop-type_func="true"
->
-    Component_1
-</span>
-```
+| prop name (type) | prop value |     | attr value | attr name                |
+| ---------------- | ---------- | --- | ---------- | ------------------------ |
+| `string`         | str        | ➜   | str        | `data-prop-string`       |
+| `number`         | 123        | ➜   | 123        | `data-prop-number`       |
+| `array`          | ['a', 'b'] | ➜   | ["a","b"]  | `data-prop-array`        |
+| `object`         | { a: 'b' } | ➜   | {"a":"b"}  | `data-prop-object`       |
+| `func`           | () => {}   | ➜   | true       | `data-prop-func`         |
+| `boolean`        | false      | ➜   | false      | `data-prop-boolean`      |
+| `empty_string`   |            | ➜   | undefined  | `data-prop-empty_string` |
+| `null`           | null       | ➜   | undefined  | `data-prop-null`         |
+| `undefined`      | undefined  | ➜   | undefined  | `data-prop-undefined`    |

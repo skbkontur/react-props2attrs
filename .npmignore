@@ -3,3 +3,5 @@ __tests__
 .idea
 .prettierrc
 tsconfig.json
+index.js.map
+

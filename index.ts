@@ -1,11 +1,10 @@
-import 'react-sorge';
-import { Sorge } from 'react-sorge/Sorge';
-import { findAssociatedNode } from 'react-sorge/lib/findAssociatedNode';
-import { getDisplayName, getInternalReactConstants } from 'react-sorge/sorge/renderer';
-import { Fiber } from 'react-sorge';
+import { Sorge, Fiber } from '@skbkontur/react-sorge';
+import { findAssociatedNode, getDisplayName, getWorkTagMap } from '@skbkontur/react-sorge/lib';
 
 Sorge.mount.on(props2attrs);
 Sorge.update.on(props2attrs);
+
+const WorkTagMap = getWorkTagMap();
 
 function props2attrs(fiber: Fiber): boolean {
   if (isComponent(fiber)) {
@@ -19,18 +18,16 @@ function props2attrs(fiber: Fiber): boolean {
 }
 
 function isComponent(fiber: Fiber): boolean {
-  const { ReactTypeOfWork } = getInternalReactConstants();
   switch (fiber.tag) {
-    case ReactTypeOfWork.ClassComponent:
-    case ReactTypeOfWork.FunctionComponent:
-    case ReactTypeOfWork.HostComponent:
+    case WorkTagMap.ClassComponent:
+    case WorkTagMap.FunctionComponent:
+    case WorkTagMap.HostComponent:
       return true;
   }
   return false;
 }
 
 function setAttributesFromProps(fiber: Fiber, node: HTMLElement): void {
-  const { ReactTypeOfWork } = getInternalReactConstants();
   const name = appendToAttr(node.getAttribute('data-comp-name'), getComponentName(fiber));
   if (name) {
     node.setAttribute('data-comp-name', name);
@@ -40,7 +37,7 @@ function setAttributesFromProps(fiber: Fiber, node: HTMLElement): void {
       if (propName === 'children' || propName === 'data-comp-name') {
         return;
       }
-      if (propName === 'style' && fiber.tag !== ReactTypeOfWork.HostComponent) {
+      if (propName === 'style' && fiber.tag !== WorkTagMap.HostComponent) {
         return;
       }
       if (propName === 'class') {
@@ -73,7 +70,7 @@ function setAttributesFromProps(fiber: Fiber, node: HTMLElement): void {
 
 function getComponentName(fiber: Fiber): string | null {
   if (typeof fiber.type === 'function') {
-    return getDisplayName(fiber.type, '');
+    return getDisplayName(fiber);
   }
   return null;
 }

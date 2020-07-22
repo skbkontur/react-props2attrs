@@ -1,21 +1,21 @@
 {
-  "name": "react-props2attrs",
+  "name": "@skbkontur/react-props2attrs",
   "version": "0.1.0",
   "description": "Translate react-props to attributes associated html-element",
   "main": "index.js",
   "scripts": {
     "prebuild": "npm run clean",
     "build": "tsc",
-    "test": "jest",
+    "test": "npm run clean && jest",
     "clean": "git clean -fdxqe node_modules",
+    "release": "npm run build && npm publish --access public",
     "lint": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/skbkontur/react-props2attrs.git"
   },
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/skbkontur/react-props2attrs/issues"
   },
@@ -43,5 +43,8 @@
       }
     },
     "testRegex": "test\\.tsx$"
+  },
+  "dependencies": {
+    "@skbkontur/react-sorge": "0.1.0"
   }
 }
