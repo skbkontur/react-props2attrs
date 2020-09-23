@@ -1,7 +1,15 @@
 import '../index';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Component_0 } from './example';
+import { setFilter } from '../index';
+import { Component_0, ComponentTestFilter } from './example';
+
+setFilter((fiber) => {
+  if (fiber.type === ComponentTestFilter) {
+    return ['translated'];
+  }
+  return null;
+});
 
 const getAllValueByAttr = async (name): Promise<string[]> => {
   const contains = [];
@@ -14,14 +22,14 @@ const getAllValueByAttr = async (name): Promise<string[]> => {
   return contains;
 };
 const getValueByDataCompName = async (name) =>
-  (await getAllValueByAttr('data-comp-name')).filter((p) => 0 <= p.search(name));
+  (await getAllValueByAttr('data-comp-name')).some((p) => 0 <= p.search(name)) || null;
 const getValueByAttr = async (name) => (await getAllValueByAttr(name)).shift();
 
 beforeEach(() => render(<Component_0 />));
 
-it('should found by attr `data-comp-name` with value `Component_2` and `Component_2_1`', async () => {
-  expect(await getValueByDataCompName('Component_2')).toBeDefined();
-  expect(await getValueByDataCompName('Component_2_1')).toBeDefined();
+it('should found by `data-comp-name` with value `Component_2` and `Component_2_1`', async () => {
+  expect(await getValueByDataCompName('Component_2')).not.toBeNull();
+  expect(await getValueByDataCompName('Component_2_1')).not.toBeNull();
 });
 
 it('should found by `data-testid` and `data-tid`', async () => {
@@ -45,6 +53,11 @@ it.each([
   ['data-prop-empty_string', undefined],
   ['data-prop-null', undefined],
   ['data-prop-undefined', undefined],
-])('should found by attr `%s` with value `%s`', async (propName, propValue) => {
+])('should found by `%s` with value `%s`', async (propName, propValue) => {
   expect(await getValueByAttr(propName)).toEqual(propValue);
+});
+
+it('should work setFilter()', async () => {
+  expect(await getValueByAttr('data-prop-translated')).toEqual('foo');
+  expect(await getValueByAttr('data-prop-not_translated')).toBeUndefined();
 });
