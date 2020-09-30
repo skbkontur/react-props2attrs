@@ -1,12 +1,23 @@
-import { Sorge, Fiber } from '@skbkontur/react-sorge';
+import { Fiber, Sorge } from '@skbkontur/react-sorge';
 import { findAssociatedNode, getDisplayName, getWorkTagMap } from '@skbkontur/react-sorge/lib';
 
-Sorge.mount.on(props2attrs);
-Sorge.update.on(props2attrs);
+Sorge.mount.on(fiberFilter);
+Sorge.update.on(fiberFilter);
+
+type FilterType = (fiber: Fiber) => string[] | null;
 
 const WorkTagMap = getWorkTagMap();
+let Filter: FilterType | null = null;
 
-function props2attrs(fiber: Fiber): boolean {
+export function setFilter(filter: FilterType | null) {
+  Filter = filter;
+}
+
+function checkProp(fiber: Fiber, propName: string): boolean {
+  return Filter === null || Filter(fiber) === null || Filter(fiber).includes(propName);
+}
+
+function fiberFilter(fiber: Fiber): boolean {
   if (isComponent(fiber)) {
     const node = findAssociatedNode(fiber);
     if (node instanceof HTMLElement) {
@@ -34,10 +45,12 @@ function setAttributesFromProps(fiber: Fiber, node: HTMLElement): void {
   }
   Object.entries({ ...attributesToObject(node.attributes), ...fiber.memoizedProps }).forEach(
     ([propName, propValue]) => {
-      if (propName === 'children' || propName === 'data-comp-name') {
-        return;
-      }
-      if (propName === 'style' && fiber.tag !== WorkTagMap.HostComponent) {
+      if (
+        !checkProp(fiber, propName) ||
+        propName === 'children' ||
+        propName === 'data-comp-name' ||
+        (propName === 'style' && fiber.tag !== WorkTagMap.HostComponent)
+      ) {
         return;
       }
       if (propName === 'class') {

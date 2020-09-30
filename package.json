@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Translate react-props to attributes associated html-element",
   "main": "index.js",
+  "typings": "index.d.ts",
   "scripts": {
     "prebuild": "npm run clean",
     "build": "tsc",
@@ -21,15 +22,15 @@
   },
   "homepage": "https://github.com/skbkontur/react-props2attrs#readme",
   "devDependencies": {
-    "@testing-library/react": "^10.2.1",
+    "@testing-library/react": "^10.4.9",
     "@types/jest": "^25.2.3",
     "@types/react-dom": "^16.9.8",
-    "jest": "^26.0.1",
-    "prettier": "^2.0.5",
+    "jest": "^26.4.2",
+    "prettier": "^2.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "ts-jest": "^26.1.0",
-    "typescript": "^3.9.5"
+    "ts-jest": "^26.4.0",
+    "typescript": "^3.9.7"
   },
   "jest": {
     "transform": {

@@ -17,6 +17,7 @@ export class Component_0 extends React.Component<{}, {}> {
           undefined={undefined}
         />
         <Component_3 data-tid="Component_2_1_1" />
+        <ComponentTestFilter translated="foo" not_translated="bar" />
       </div>
     );
   }
@@ -63,3 +64,14 @@ class Component_3 extends React.Component<{}, {}> {
     return <span style={{ paddingLeft: 20, color: 'red' }}>Component_3</span>;
   }
 }
+
+interface Props_4 {
+  translated: string;
+  not_translated: string;
+}
+
+const ComponentTestFilter = (props: Props_4) => {
+  return <span>ComponentTestFilter</span>;
+};
+
+export { ComponentTestFilter };

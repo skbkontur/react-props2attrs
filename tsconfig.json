@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
-    "jsx": "react",
-    "sourceMap": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node", "@types/jest", "@types/react-dom"],
-    "target": "es5",
+    "declaration": true,
+    "esModuleInterop": true,
+    "jsx": "react",
     "module": "commonjs",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "target": "es5",
+    "types": ["node", "@types/jest", "@types/react-dom"]
   },
   "include": ["./index.ts"],
   "exclude": ["./__tests__"]
