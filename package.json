@@ -1,6 +1,6 @@
 {
   "name": "@skbkontur/react-props2attrs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Translate react-props to attributes associated html-element",
   "main": "index.js",
   "typings": "index.d.ts",
