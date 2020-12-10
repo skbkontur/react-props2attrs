@@ -39,6 +39,13 @@ it('should found by `data-testid` and `data-tid`', async () => {
   expect(await screen.getByTestId(testId)).toBeDefined();
 });
 
+it('should found by `data-key`', async () => {
+  const allKeys = await getAllValueByAttr('data-key');
+  expect(allKeys.length).toEqual(2);
+  expect(allKeys).toContain('value');
+  expect(allKeys).toContain('23');
+});
+
 it('should found by `data-prop-style`', async () => {
   expect(await getValueByAttr('data-prop-style')).toEqual('{"paddingLeft":20,"color":"red"}');
 });

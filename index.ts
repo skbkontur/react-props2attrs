@@ -43,6 +43,9 @@ function setAttributesFromProps(fiber: Fiber, node: HTMLElement): void {
   if (name) {
     node.setAttribute('data-comp-name', name);
   }
+  if (typeof fiber.key === 'string') {
+    node.setAttribute('data-key', fiber.key);
+  }
   Object.entries({ ...attributesToObject(node.attributes), ...fiber.memoizedProps }).forEach(
     ([propName, propValue]) => {
       if (

@@ -1,9 +1,8 @@
 # react-props2attrs
 
-Транслирует пропы реакт-компонентов в атрибуты ассоциированных html-элементов.  
+Транслирует пропы реакт-компонентов в атрибуты ассоциированных html-элементов.
 
 Ассоциированный элемент, в который транслируются пропы - это первый `HTMLElement`, найденный внутри компонента. Пакет работает только с 3-мя (из ~24) типами `WorkTag`: `ClassComponent`, `FunctionComponent` и `HostComponent`(`div`, `span`, `table` etc.). Остальные типы игнорируются.
-
 
 ## Установка
 
@@ -82,6 +81,7 @@ const Bar = () => <Foo hello="world" />;
 | `children`       | ~~не поддерживается~~             | ➜   | ~~не поддерживается~~            |                              |
 | `style`          | { paddingLeft: 20, color: 'red' } | ➜   | {"paddingLeft":20,"color":"red"} | `data-prop-style`            |
 | `class`          | colored                           | ➜   | colored                          | `data-prop-classname`        |
+| `key`            | value                             | ➜   | value                            | `data-key`                   |
 | `data-tid`       | MyControl                         | ➜   | MyControl                        | `data-tid` and `data-testid` |
 | \*Имя компонента | ButtonCover                       | ➜   | \*ButtonCover Button             | `data-comp-name`             |
 
