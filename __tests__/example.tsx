@@ -4,7 +4,7 @@ export class Component_0 extends React.Component<{}, {}> {
   render() {
     return (
       <div>
-        <Component_1 />
+        <Component_1 key={23} />
         <Component_2
           string="str"
           number={123}
@@ -47,7 +47,7 @@ interface Props_2 {
 
 export class Component_2 extends React.Component<Props_2, {}> {
   public render() {
-    return <Component_2_1 />;
+    return <Component_2_1 key="value" />;
   }
 }
 
