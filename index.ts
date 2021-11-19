@@ -1,5 +1,5 @@
 import { Fiber, Sorge } from '@skbkontur/react-sorge';
-import { findAssociatedNode, getDisplayName, getWorkTagMap } from '@skbkontur/react-sorge/lib';
+import { findAssociatedNode, getDisplayName, getWorkTagMap, findAmongParents } from '@skbkontur/react-sorge/lib';
 
 Sorge.mount.on(fiberFilter);
 Sorge.update.on(fiberFilter);
@@ -59,20 +59,15 @@ function setAttributesFromProps(fiber: Fiber, node: HTMLElement): void {
       if (propName === 'class') {
         propName = 'classname';
       }
-      const propValueSafe = stringifySafe(propValue);
       if (typeof propValue === 'function') {
         node.setAttribute(`data-prop-${propName}`, stringifySafe(true));
         return;
       }
-      if (propName === 'data-tid') {
-        node.setAttribute('data-testid', propValueSafe);
-        node.setAttribute(propName, propValueSafe);
+      if (propName === 'data-key' || propName === 'data-tid' || propName === 'data-testid') {
+        node.setAttribute(propName, getParentProp(fiber, propName, propValue));
         return;
       }
-      if (propName === 'data-testid' || propName === 'data-key') {
-        node.setAttribute(propName, propValueSafe);
-        return;
-      }
+      const propValueSafe = stringifySafe(propValue);
       if (propValueSafe !== '') {
         if (propName.startsWith('data-prop-')) {
           node.setAttribute(propName, propValueSafe);
@@ -82,6 +77,18 @@ function setAttributesFromProps(fiber: Fiber, node: HTMLElement): void {
       }
     },
   );
+}
+
+function getParentProp(fiber: Fiber, propName: string, propValue: unknown): string {
+  const node = findAssociatedNode(fiber);
+  findAmongParents(fiber, (f: Fiber) => {
+    if (findAssociatedNode(f) === node) {
+      propValue = f.memoizedProps?.[propName] ?? propValue;
+      return false;
+    }
+    return true;
+  });
+  return stringifySafe(propValue);
 }
 
 function getComponentName(fiber: Fiber): string | null {

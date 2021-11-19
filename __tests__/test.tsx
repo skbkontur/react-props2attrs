@@ -33,10 +33,8 @@ it('should found by `data-comp-name` with value `Component_2` and `Component_2_1
 });
 
 it('should found by `data-testid` and `data-tid`', async () => {
-  const testId = 'Component_2_1_1';
-
-  expect(await getAllValueByAttr('data-tid')).toContain(testId);
-  expect(await screen.getByTestId(testId)).toBeDefined();
+  expect(await getAllValueByAttr('data-tid')).toContain('Component_2_1_1.tid');
+  expect(await screen.getByTestId('Component_2_1_1.testid')).toBeDefined();
 });
 
 it('should found by `data-key`', async () => {

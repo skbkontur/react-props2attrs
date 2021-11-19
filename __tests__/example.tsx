@@ -16,7 +16,8 @@ export class Component_0 extends React.Component<{}, {}> {
           null={null}
           undefined={undefined}
         />
-        <Component_3 data-tid="Component_2_1_1" />
+        <Component_3 data-tid="Component_2_1_1.tid" />
+        <Component_3 data-testid="Component_2_1_1.testid" />
         <ComponentTestFilter translated="foo" not_translated="bar" />
       </div>
     );
@@ -61,7 +62,11 @@ const Component_2_1_1 = () => {
 
 class Component_3 extends React.Component<{}, {}> {
   public render() {
-    return <span style={{ paddingLeft: 20, color: 'red' }}>Component_3</span>;
+    return (
+      <span data-tid="Component_3.tid" data-testid="Component_3.testid" style={{ paddingLeft: 20, color: 'red' }}>
+        Component_3
+      </span>
+    );
   }
 }
 
