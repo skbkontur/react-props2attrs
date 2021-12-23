@@ -1,6 +1,6 @@
 {
   "name": "@skbkontur/react-props2attrs",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Translate react-props to attributes associated html-element",
   "main": "index.js",
   "typings": "index.d.ts",
@@ -46,6 +46,6 @@
     "testRegex": "test\\.tsx$"
   },
   "dependencies": {
-    "@skbkontur/react-sorge": "0.1.0"
+    "@skbkontur/react-sorge": "^0.2.1"
   }
 }
